@@ -4,6 +4,8 @@ public class CafeteriaSystem {
     private final Map<String, MenuItem> menu = new LinkedHashMap<>();
     private final FileStore store = new FileStore();
     private int invoiceSeq = 1000;
+    private final PricingService pricing = new PricingService();
+
 
     public void addToMenu(MenuItem i) { menu.put(i.id, i); }
 
@@ -13,11 +15,10 @@ public class CafeteriaSystem {
         StringBuilder out = new StringBuilder();
         out.append("Invoice# ").append(invId).append("\n");
 
-        double subtotal = 0.0;
-        for (OrderLine l : lines) {
+        double subtotal = pricing.calculateSubtotal(menu, lines);
+            for (OrderLine l : lines) {
             MenuItem item = menu.get(l.itemId);
-            double lineTotal = item.price * l.qty;
-            subtotal += lineTotal;
+            double lineTotal = pricing.calculateLineTotal(item, l.qty);
             out.append(String.format("- %s x%d = %.2f\n", item.name, l.qty, lineTotal));
         }
 
@@ -27,6 +28,7 @@ public class CafeteriaSystem {
         double discount = DiscountRules.discountAmount(customerType, subtotal, lines.size());
 
         double total = subtotal + tax - discount;
+
 
         out.append(String.format("Subtotal: %.2f\n", subtotal));
         out.append(String.format("Tax(%.0f%%): %.2f\n", taxPct, tax));
