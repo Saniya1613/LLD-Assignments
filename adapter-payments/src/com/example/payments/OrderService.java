@@ -10,7 +10,7 @@ public class OrderService {
         this.gateways = Objects.requireNonNull(gateways, "gateways");
     }
 
-    // Smell: still switches; your refactor should remove this by ensuring map contains adapters.
+    // find the gateway by name and charge
     public String charge(String provider, String customerId, int amountCents) {
         Objects.requireNonNull(provider, "provider");
         PaymentGateway gw = gateways.get(provider);
