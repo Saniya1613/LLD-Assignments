@@ -2,9 +2,7 @@ package com.example.map;
 
 import java.util.List;
 
-/**
- * Renders markers to console (simulating a UI renderer).
- */
+// just prints first few markers so we can see it works
 public class MapRenderer {
 
     public void render(List<MapMarker> markers) {

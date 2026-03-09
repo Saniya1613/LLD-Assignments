@@ -4,14 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Quick validation:
- * - counts unique style object references used by markers.
- *
- * Starter should report a large number (close to marker count).
- * After Flyweight refactor, it should report a small number
- * (bounded by unique combinations of shape/color/size/filled).
- */
+// checks how many unique style objects we actually ended up with
 public class QuickCheck {
 
     public static void main(String[] args) {
